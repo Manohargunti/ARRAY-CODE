@@ -14,6 +14,7 @@ A
 **Based on your solution, what letter grade would you say you earned?**  
 A  
 **Summary of what doesn’t work / where I struggled** 
+
 while coding little errors made me little frustated
 
 ## Execution proof
