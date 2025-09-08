@@ -21,4 +21,4 @@ Below are screenshots showing that the program complied and executed successfull
 ### Screenshot 1: Code and Program Output  
 ![Execution screenshot 1](MAN1.jpg)
 ### Screenshot 2: Additional Output Test  
-![Execution Screenshot 2](mAN 2.jpg)
+![Execution Screenshot 2](mAN2.jpg)
