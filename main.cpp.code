@@ -1,51 +1,10 @@
 #include <iostream>
 using namespace std;
 
-struct Node {
+struct SparseMatrix {
     int row;
     int col;
     int val;
-    Node* next;
-};
-
-class SparseMatrix {
-private:
-    Node* head;
-public:
-    SparseMatrix() {
-        head = nullptr;
-    }
-
-    void insert(int r, int c, int v) {
-        if (v == 0) return;
-        Node* newNode = new Node;
-        newNode->row = r;
-        newNode->col = c;
-        newNode->val = v;
-        newNode->next = nullptr;
-
-        if (head == nullptr) {
-            head = newNode;
-        } else {
-            Node* temp = head;
-            while (temp->next != nullptr)
-                temp = temp->next;
-            temp->next = newNode;
-        }
-    }
-
-    void display() {
-        if (head == nullptr) {
-            cout << "Sparse matrix is empty." << endl;
-            return;
-        }
-        cout << "Row Col Val" << endl;
-        Node* temp = head;
-        while (temp != nullptr) {
-            cout << temp->row << " " << temp->col << " " << temp->val << endl;
-            temp = temp->next;
-        }
-    }
 };
 
 int main() {
@@ -54,30 +13,56 @@ int main() {
     cout << "Enter number of rows: ";
     cin >> m;
     if (m <= 0) {
-        cout << "Invalid entry! Number of rows must be greater than 0." << endl;
+        cout << "Invalid entry! Number of rows must be greater than 0.\n";
         return 0;
     }
 
     cout << "Enter number of columns: ";
     cin >> n;
     if (n <= 0) {
-        cout << "Invalid entry! Number of columns must be greater than 0." << endl;
+        cout << "Invalid entry! Number of columns must be greater than 0.\n";
         return 0;
     }
 
-    SparseMatrix sm;
-    cout << "Enter " << m * n << " matrix elements one by one:" << endl;
+    int matrix[m][n];
+
+    cout << "Enter " << m * n << " elements one at a time:\n";
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            int val;
             cout << "Element at (" << i << "," << j << "): ";
-            cin >> val;
-            sm.insert(i, j, val);
+            cin >> matrix[i][j];
         }
     }
 
-    cout << "\nSparse Matrix Representation (Linked List):" << endl;
-    sm.display();
+    int count = 0;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (matrix[i][j] != 0)
+                count++;
+        }
+    }
+
+    SparseMatrix sparse[count + 1];
+    sparse[0].row = m;
+    sparse[0].col = n;
+    sparse[0].val = count;
+
+    int k = 1;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (matrix[i][j] != 0) {
+                sparse[k].row = i;
+                sparse[k].col = j;
+                sparse[k].val = matrix[i][j];
+                k++;
+            }
+        }
+    }
+
+    cout << "\nSparse Matrix Representation (Row Col Val):\n";
+    for (int i = 0; i <= count; i++) {
+        cout << sparse[i].row << " " << sparse[i].col << " " << sparse[i].val << endl;
+    }
 
     return 0;
 }
